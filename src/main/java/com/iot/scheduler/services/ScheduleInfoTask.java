@@ -9,12 +9,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
-import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.Date;
 import java.util.Random;
-import java.util.TimeZone;
 import java.util.UUID;
 
 @Component
@@ -26,8 +23,8 @@ public class ScheduleInfoTask {
 
     @Scheduled(fixedRate = 10000)
     public void createLocomotiveData() {
-        final String[] locoName = {"Oakland Line", "Observatory Line", "Hope Valley Tracks", "Midsummer Line"};
-        final String[] locoDimension = {"10x10", "20x20", "30x30", "40x40"};
+        final String[] locoName = { "Oakland Line", "Observatory Line", "Hope Valley Tracks", "Midsummer Line" };
+        final String[] locoDimension = { "10x10", "20x20", "30x30", "40x40" };
 
         Random random = new Random();
 
