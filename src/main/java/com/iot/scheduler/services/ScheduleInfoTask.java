@@ -9,14 +9,15 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import java.security.SecureRandom;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.Random;
 import java.util.UUID;
 
 @Component
 public class ScheduleInfoTask {
     private static final Logger log = LoggerFactory.getLogger(ScheduleInfoTask.class);
+    private static final SecureRandom RANDOM = new SecureRandom();
 
     @Autowired
     WebClient webClient;
@@ -26,13 +27,11 @@ public class ScheduleInfoTask {
         final String[] locoName = { "Oakland Line", "Observatory Line", "Hope Valley Tracks", "Midsummer Line" };
         final String[] locoDimension = { "10x10", "20x20", "30x30", "40x40" };
 
-        Random random = new Random();
-
         Locomotive locomotive = Locomotive.builder()
                 .locomotiveCode(UUID.randomUUID())
-                .locomotiveName(locoName[random.nextInt(locoName.length)])
-                .locomotiveDimension(locoDimension[random.nextInt(locoDimension.length)])
-                .status(random.nextInt(3) + 1) // generate random status between 1 and 3
+                .locomotiveName(locoName[RANDOM.nextInt(locoName.length)])
+                .locomotiveDimension(locoDimension[RANDOM.nextInt(locoDimension.length)])
+                .status(RANDOM.nextInt(3) + 1) // generate random status between 1 and 3
                 .time(Instant.now().toString())
                 .build();
 
