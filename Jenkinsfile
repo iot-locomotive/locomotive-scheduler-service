@@ -23,7 +23,7 @@ pipeline {
                 sh "docker build -t anandhias/locomotive-scheduler-service ."
             }
         }
-        
+
         stage('Push Image to Docker Hub') {
             steps {
                 // load docker hub credentials
