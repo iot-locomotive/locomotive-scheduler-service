@@ -16,14 +16,30 @@ pipeline {
                 sh "mvn clean package"
             }
         }
-
+        
+        stage('Check SonarQube Code Analysis') {
+            steps {
+                withSonarQubeEnv('jenkins-sonarqube') {
+                    sh "mvn clean verify sonar:sonar"
+                    echo "SUCCESS Check SonarQube Code Analysis"
+                }
+            }
+        }
+        
+        stage("Quality Gate") {
+            steps {
+                waitForQualityGate abortPipeline: false
+                echo "Quality Gate check completed"
+            }
+        }
+        
         stage('Build Docker Image') {
             steps {
                 // build docker image
                 sh "docker build -t anandhias/locomotive-scheduler-service ."
             }
         }
-
+        
         stage('Push Image to Docker Hub') {
             steps {
                 // load docker hub credentials
